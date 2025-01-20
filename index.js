@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import dotenv from "dotenv";
+import { connectDbSequelize } from "./database/sequelizeConnection.js";
 
 const fastify = Fastify({ logger: true });
 
@@ -26,6 +27,7 @@ fastify.register(cors, {
 
 const startApi = async () => {
   try {
+    await connectDbSequelize();
     await fastify.listen({ port: process.env.PORT || 4000 });
     console.info(`Server listening on ${fastify.server.address().port}`);
   } catch (err) {
