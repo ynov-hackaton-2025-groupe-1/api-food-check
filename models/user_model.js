@@ -1,9 +1,4 @@
-export const getUsersList = async () => {
-  const users = await models.User.findAll({
-    attributes: ["id", "email", "fullname"],
-  });
-  return users;
-};
+import { models } from "../database/models/index.js";
 
 export const findUserByEmail = async (email) => {
   const user = await models.User.findOne({
