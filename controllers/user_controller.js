@@ -2,10 +2,10 @@ import {
   findUserById,
   deleteUser,
   updateUser,
-} from "../models/userModel.js";
+} from "../models/user_model.js";
 
 export const getById = async (request, reply) => {
-  const { id } = request.params;
+  const { id } = request.body;
   const user = await findUserById(id);
   return reply.send(user);
 };
