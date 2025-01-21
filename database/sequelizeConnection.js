@@ -1,15 +1,18 @@
 import { Sequelize } from "@sequelize/core";
+import { PostgresDialect } from "@sequelize/postgres";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 export const sequelize = new Sequelize({
+  dialect: PostgresDialect,
   database: process.env.POSTGRES_DB,
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   host: process.env.POSTGRES_HOST,
   port: process.env.DB_PORT,
-  dialect: "postgres",
+  ssl: true,
+  clientMinMessages: "notice"
 });
 
 export const connectDbSequelize = async () => {
