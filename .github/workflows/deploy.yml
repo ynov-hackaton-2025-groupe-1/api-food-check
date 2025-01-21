@@ -34,6 +34,7 @@ jobs:
           echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
           echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> .env
           echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          npm install
           npm run start --if-present
          
       - name: Zip artifact for deployment
