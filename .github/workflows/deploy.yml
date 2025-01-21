@@ -1,0 +1,40 @@
+name: Build and deploy Node.js app to Azure Web App - foodcheck-web
+
+on:
+  push:
+    branches:
+      - web-deployment
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: List files in the repository
+        run: ls -R  # Lister tous les fichiers pour vérifier que package.json est présent
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: npm install, build, and test
+        run: |
+          cd api-food-check  # Naviguer dans le dossier contenant package.json
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
+      - name: Zip artifact for deployment
+        run: |
+          cd api-food-check  # Assurez-vous d'être dans le bon répertoire
+          zip release.zip ./* -r
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: api-food-check/release.zip
