@@ -6,9 +6,7 @@ import {
 
 export const getById = async (request, reply) => {
   const { id } = request.params;
-  console.log("id", id);
   const user = await findUserById(id);
-  console.log("user", user);
   return reply.send(user);
 };
 
