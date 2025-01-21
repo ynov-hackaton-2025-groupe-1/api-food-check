@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "@fastify/cors": "^10.0.2",
+    "@fastify/jwt": "^9.0.3",
+    "@fastify/middie": "^9.0.3",
     "@sequelize/core": "^7.0.0-alpha.42",
     "@sequelize/postgres": "^7.0.0-alpha.43",
     "bcrypt": "^5.1.1",
