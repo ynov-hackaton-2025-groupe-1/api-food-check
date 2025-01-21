@@ -49,7 +49,7 @@ jobs:
  
       - name: Zip artifact for deployment
         run: |
-          cd api-food-check  # Assurez-vous d'être dans le bon répertoire
+          cd api-food-check 
           zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
