@@ -5,8 +5,10 @@ import {
 } from "../models/user_model.js";
 
 export const getById = async (request, reply) => {
-  const { id } = request.body;
+  const { id } = request.params;
+  console.log("id", id);
   const user = await findUserById(id);
+  console.log("user", user);
   return reply.send(user);
 };
 
@@ -25,9 +27,9 @@ export const update = async (request, reply) => {
     if (updatedUser[0] === 0) {
       return reply.status(404).json({ message: "User not found" });
     }
-    return reply.status(200).json(updatedUser[1][0]);
+    return reply.status(200).send({message: "User updated", data: updatedUser[1][0].dataValues});
   } catch (error) {
     console.error(error);
-    return reply.status(500).json({ message: "Internal server error" });
+    return reply.status(500).send({ message: "Internal server error" });
   }
 };
