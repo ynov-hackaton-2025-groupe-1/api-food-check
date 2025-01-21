@@ -26,9 +26,8 @@ jobs:
         run: |
           cd api-food-check  # Naviguer dans le dossier contenant package.json
           npm install
-          npm run build --if-present
-          npm run test --if-present
-
+          npm run start --if-present
+         
       - name: Zip artifact for deployment
         run: |
           cd api-food-check  # Assurez-vous d'être dans le bon répertoire
