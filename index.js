@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectDbSequelize } from "./database/sequelizeConnection.js";
 import authRoutes from "./routes/auth_route.js";
 import usersRoutes from "./routes/user_routes.js";
+import foodRoutes from "./routes/food_route.js";
 import fastifyJwt from "@fastify/jwt";
 import middie from "@fastify/middie";
 import { authMiddleware } from "./middleware/auth_middleware.js";
@@ -17,9 +18,16 @@ fastify.register(fastifyJwt, {
 });
 
 fastify.register(middie);
-fastify.register(authRoutes, { prefix: "/api/auth" });
 fastify.register(authMiddleware);
-fastify.register(usersRoutes, { prefix: "/api" });
+const routes = [
+  { route: authRoutes, prefix: "/api/auth" },
+  { route: usersRoutes, prefix: "/api" },
+  { route: foodRoutes, prefix: "/api" },
+];
+
+routes.forEach(({ route, prefix }) => {
+  fastify.register(route, { prefix });
+});
 
 fastify.register(cors, {
   origin: (origin, cb) => {
