@@ -1,7 +1,7 @@
-import { getFoodList } from "../controllers/food_controller";
+import { getAllFood } from "../controllers/food_controller.js";
 
 const foodRoutes = async (fastify, options) => {
-  fastify.get("/food", getFoodList);
+  fastify.get("/food", getAllFood);
 }
 
 export default foodRoutes;
