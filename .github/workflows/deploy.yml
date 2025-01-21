@@ -25,7 +25,7 @@ jobs:
       - name: npm install, build, and test
         run: |
           ls
-          cd api-food-check  # Naviguer dans le dossier contenant package.json
+        
           npm install
           npm run start --if-present
          
