@@ -1,19 +1,18 @@
-name: Build and deploy Node.js app to Azure Web App - foodcheck-web
+name: Deploy Node.js app
 
 on:
   push:
     branches:
-      - web-deployment
-  workflow_dispatch:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # Liste des fichiers pour vérifier si le dossier api-food-check existe
       - name: List files in the repository
         run: ls -R
 
@@ -25,18 +24,19 @@ jobs:
       - name: npm install, build, and test
         run: |
           touch .env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
-          echo "SALT_ROUNDS=${{ secrets.SALT_ROUNDS }}" >> .env
-          echo "DB_DIALECT=${{ secrets.DB_DIALECT }}" >> .env
-          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
-          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
-          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> .env
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "JWT_SECRET=${{ secrets.BACK_SECRET_JWT_SECRET }}" >> .env
+          echo "PORT=${{ secrets.BACK_SECRET_PORT }}" >> .env
+          echo "SALT_ROUNDS=${{ secrets.BACK_SECRET_SALT_ROUNDS }}" >> .env
+          echo "DB_DIALECT=${{ secrets.BACK_SECRET_DB_DIALECT }}" >> .env
+          echo "POSTGRES_DB=${{ secrets.BACK_SECRET_POSTGRES_DB }}" >> .env
+          echo "POSTGRES_USER=${{ secrets.BACK_SECRET_POSTGRES_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.BACK_SECRET_POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_HOST=${{ secrets.BACK_SECRET_POSTGRES_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.BACK_SECRET_DB_PORT }}" >> .env
+          echo "FRONTEND_URL=${{ secrets.BACK_SECRET_FRONTEND_URL }}" >> .env
           npm install
           npm run start --if-present
-         
+
       - name: Zip artifact for deployment
         run: |
           cd api-food-check  # Assurez-vous d'être dans le bon répertoire
