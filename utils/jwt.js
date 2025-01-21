@@ -1,6 +1,6 @@
-import jwt from "@fastify/jwt";
+import jwt from "jsonwebtoken";
 
-export const generateToken = (payload, time) => {
-  const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: time});
+export const generateToken = (payload, ) => {
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "24h"});
   return token;
 } 

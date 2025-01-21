@@ -9,10 +9,6 @@ const fastify = Fastify({ logger: true });
 
 dotenv.config();
 
-fastify.register(fastifyJwt, {
-  secret: process.env.JWT_SECRET,
-});
-
 fastify.register(authRoutes, { prefix: "/api/auth" });
 
 fastify.register(cors, {
